@@ -14,7 +14,7 @@
 	<context:spring-configured/><!-- Activa ID por Autowired -->
 	<context:component-scan 
 		base-package="	
-			es.indra.formacion.pr.spring.front.rest
+			es.indra.formacion.pr.js.front.rest
 			"/>
 			
 	<mvc:annotation-driven /><!--  Allow for dispatching requests to controllers (produces and consumes) -->

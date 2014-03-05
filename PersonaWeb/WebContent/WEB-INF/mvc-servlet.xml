@@ -11,9 +11,9 @@
 	<context:spring-configured/><!-- Activa ID por Autowired -->
 	<context:component-scan 
 		base-package="
-			es.indra.formacion.pr.spring.front.controller,
-			es.indra.formacion.pr.spring.front.editor,
-			es.indra.formacion.pr.spring.front.validator"/>
+			es.indra.formacion.pr.js.front.controller,
+			es.indra.formacion.pr.js.front.editor,
+			es.indra.formacion.pr.js.front.validator"/>
 		
 	<!-- BEGIN: i18n -->
 	<!-- Define dónde estarán los messages.properties -->

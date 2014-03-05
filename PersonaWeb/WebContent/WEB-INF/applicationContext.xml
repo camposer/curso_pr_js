@@ -13,7 +13,7 @@
 	<context:annotation-config/><!-- Activa anotaciones en Spring -->
 	<context:spring-configured/><!-- Activa ID por Autowired -->
 	<context:component-scan 
-		base-package="es.indra.formacion.pr.spring.config"/>
+		base-package="es.indra.formacion.pr.js.config"/>
 
 	<bean 
 			id="entityManagerFactory" 
