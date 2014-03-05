@@ -20,17 +20,9 @@ public class OrdenadorService implements IOrdenadorService {
 	
 	@Override
 	public void agregarOrdenador(Ordenador o) {
-		Integer id = null;
-		if (o.getPersonaId() != null)
-			id = o.getPersonaId();
-		else
-			id = o.getPersona().getId();
-		
-		if (id != null) {
-			Persona p = personaDao.obtener(id);
-			o.setPersona(p);
-		}
-		
+		Persona p = personaDao.obtener(o.getPersona().getId());
+		o.setPersona(p);
+
 		ordenadorDao.agregar(o); // Ahora sí funciona!!
 	}
 
@@ -68,16 +60,8 @@ public class OrdenadorService implements IOrdenadorService {
 
 	@Override
 	public void modificarOrdenador(Ordenador o) {
-		Integer id = null;
-		if (o.getPersonaId() != null)
-			id = o.getPersonaId();
-		else if (o.getPersona() != null)
-			id = o.getPersona().getId();
-		
-		if (id != null) {
-			Persona p = personaDao.obtener(id);
-			o.setPersona(p);
-		}
+		Persona p = personaDao.obtener(o.getPersona().getId());
+		o.setPersona(p);
 		
 		ordenadorDao.modificar(o); 
 	}
