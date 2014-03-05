@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Hola mundo</title>
+	<script src="js/jquery-1.11.0.js" type="text/javascript"></script>
+	<script>
+		var holaMundo = function() {
+			$("#contenido").html("Hola mundo!");
+		}
+	
+		var adiosMundo = function() {
+			$("#contenido").html("Adiós mundo!");			
+		}
+		
+		var init = function() {
+			holaMundo();
+			
+			$("#btnHolaMundo").click(holaMundo);
+			$("#btnAdiosMundo").click(adiosMundo);
+			$(".clsBoton").each(function(idx, e) {
+				$(e).click(adiosMundo);
+			});
+		}
+		
+		$(document).ready(init); // Obtengo el elemento a través de un objeto
+
+		/*
+		$(document).ready(function() {
+			// Aquí iría el contenido de la función init o la llamada a 
+		});
+		*/
+	</script>
+</head>
+<body>
+	<div id="contenido"></div>
+	<br/>
+	<input id="btnHolaMundo" type="button" value="Hola mundo"/><br/>
+	<input id="btnAdiosMundo" type="button" value="Adiós mundo"/><br/>
+	<input class="clsBoton" type="button" value="Adiós mundo cls"/><br/>
+	<input class="clsBoton" type="button" value="Adiós mundo cls"/><br/>
+</body>
+</html>
