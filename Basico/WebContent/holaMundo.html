@@ -84,7 +84,12 @@
 			holaMundo();
 			agregarBotonera();
 			
-			$("#btnHolaMundo").click(holaMundo);
+			$("#btnHolaMundo").click(hovar input = $("<input>");
+			input.attr("type", "button");
+			input.attr("class", "clsBoton");
+			input.attr("value", "Boton diferente");
+			
+			input.appendTo("#botonera");	laMundo);
 			$("#btnAdiosMundo").click(adiosMundo);
 			$(".clsBoton").each(function(idx, e) {
 				$(e).click(adiosMundo);
