@@ -50,6 +50,16 @@ public class OrdenadorRest {
 	}	
 
 	@RequestMapping(
+			value="/ordenadores/{id}", 
+			method=RequestMethod.DELETE
+		)
+	public @ResponseBody void eliminar(
+			@PathVariable Integer id) {
+		
+		ordenadorService.eliminarOrdenador(id);
+	}	
+
+	@RequestMapping(
 			value={"/ordenadores", "/ordenadores/"}, 
 			method=RequestMethod.POST,
 			consumes="application/json"
