@@ -41,7 +41,7 @@ public class OrdenadorRest {
 			method=RequestMethod.PUT,
 			consumes="application/json"
 		)
-	public @ResponseBody void modificar(
+	public void modificar(
 			@PathVariable Integer id, 
 			@RequestBody Ordenador ordenador) {
 		
@@ -53,7 +53,7 @@ public class OrdenadorRest {
 			value="/ordenadores/{id}", 
 			method=RequestMethod.DELETE
 		)
-	public @ResponseBody void eliminar(
+	public void eliminar(
 			@PathVariable Integer id) {
 		
 		ordenadorService.eliminarOrdenador(id);
@@ -64,7 +64,7 @@ public class OrdenadorRest {
 			method=RequestMethod.POST,
 			consumes="application/json"
 		)
-	public @ResponseBody void agregar(@RequestBody Ordenador ordenador) {
+	public void agregar(@RequestBody Ordenador ordenador) {
 		System.out.println(ordenador);
 		ordenadorService.agregarOrdenador(ordenador);
 	}	

@@ -42,18 +42,13 @@
 		};
 		
 		var imprimirPersonas = function(personas) {
-			var selectedId = "<c:out value="${ordenadorForm.personaId}"/>";
-			
-			var select = $("<select name='personaId'>");
+			var select = $("<select id='personaId' name='personaId'>");
 			
 			for (var i in personas) {
 				var p = personas[i];
 				var option = $("<option>"); // => document.createElement("option");
 				option.attr("value", p.id);
 				option.html(p.nombre + " " + p.apellido);
-
-				if (selectedId != "" && selectedId == p.id)
-					option.attr("selected", "selected");	
 
 				option.appendTo(select);
 			}
@@ -63,7 +58,7 @@
 		};
 		
 		var peticionOrdenadores = function() {
-			var url = "/PersonaWeb/rest/ordenadores";
+			var url = "../rest/ordenadores";
 			
 			var ajax = $.ajax(url, {
 				type: "GET",
@@ -85,6 +80,40 @@
 			});			
 		};
 	
+		var limpiarFormulario = function() {
+			$("#nombre").val("");
+			$("#serial").val("");
+			//$("#personaId option:first-child").attr("selected", "selected");
+			$("#personaId option:first-child").prop("selected", "selected");
+		};
+		
+		var agregarOrdenador = function() {
+			// TODO: Incluir validaciones client-side (Ej. jQuery Validation Plugin)
+			
+			var url = "../rest/ordenadores";
+			var ordenador = {
+				nombre: $("#nombre").val(),
+				serial: $("#serial").val(),
+				persona: {
+					//id: $("select[name=personaId]").val()
+					id: $("#personaId").val()
+				}
+			};
+			
+			var ajax = $.ajax(url, {
+				type: "POST",
+				data: JSON.stringify(ordenador),
+				contentType: "application/json"
+			});
+			
+			ajax.done(function() {
+				limpiarFormulario();
+				peticionOrdenadores();
+			}).fail(function() {
+				window.alert("Error");
+			});
+		};
+		
 		$(document).ready(function() {
 			peticionOrdenadores();
 			peticionPersonas();
@@ -92,6 +121,8 @@
 			"for (var i in hola) { " +
 			"	window.alert(hola[i]);" + 
 			"}" %>
+			
+			$("#btnAgregar").click(agregarOrdenador);
 		});
 	</script>
 </head>
@@ -99,35 +130,28 @@
 <c:out value=""></c:out>
 	<h1><spring:message code="ordenador.titulo"/></h1>
 	
-		<form:form action="agregar.do" commandName="ordenadorForm" method="POST">
-		<form:errors path="*" cssStyle="border: 1px solid red; color: red"/>
 		<table>
 			<tr>
 				<td><spring:message code="ordenador.nombre"/>:</td>
-				<td><form:input path="nombre"/></td>
-				<td><form:errors path="nombre" cssStyle="border: 1px solid red; color: red"/></td>
+				<td><input id="nombre" type="text"/></td>
 			</tr>
 			<tr>
 				<td><spring:message code="ordenador.serial"/>:</td>
-				<td><form:input path="serial"/></td>
-				<td><form:errors path="serial" cssStyle="border: 1px solid red; color: red"/></td>
+				<td><input id="serial" type="text"/></td>
 			</tr>
 			<tr>
 				<td><spring:message code="ordenador.propietario"/>:</td>
 				<td>
-					<div id="divPersonaId">
-					
-					</div>
+					<div id="divPersonaId"></div>
 				</td>
 				<td></td>
 			</tr>
 			<tr>
-				<td colspan="3">
-					<input type="submit" value="<spring:message code="ordenador.boton.agregar"/>"/>
+				<td colspan="2">
+					<input id="btnAgregar" type="button" value="<spring:message code="ordenador.boton.agregar"/>"/>
 				</td>
 			</tr>
 		</table>
-	</form:form>
 			
 	<br/>
 	
