@@ -1,5 +1,6 @@
 package es.indra.formacion.pr.js.front.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import es.indra.formacion.pr.js.front.wrapper.ResponseWrapper;
 import es.indra.formacion.pr.js.model.Ordenador;
 import es.indra.formacion.pr.js.service.IOrdenadorService;
 
@@ -62,11 +64,44 @@ public class OrdenadorRest {
 	@RequestMapping(
 			value={"/ordenadores", "/ordenadores/"}, 
 			method=RequestMethod.POST,
-			consumes="application/json"
+			consumes="application/json",
+			produces="application/json"
 		)
-	public void agregar(@RequestBody Ordenador ordenador) {
-		System.out.println(ordenador);
-		ordenadorService.agregarOrdenador(ordenador);
+	public @ResponseBody ResponseWrapper<List<Ordenador>> agregar(@RequestBody Ordenador ordenador) {
+		ResponseWrapper<List<Ordenador>> responseWrapper = new ResponseWrapper<List<Ordenador>>();
+		
+		// FIXME: Averiguar como meter clave de messages
+		/***** Validaciones *****/
+		List<String> errores = new ArrayList<String>();
+		
+		if (ordenador.getNombre() == null || 
+				ordenador.getNombre().trim().equals(""))
+			errores.add("Nombre inválido"); 
+			
+		if (ordenador.getSerial() == null || 
+			ordenador.getSerial().trim().equals("") ||
+			ordenador.getSerial().trim().length() < 7)
+			errores.add("Serial inválido"); 
+		
+		if (ordenador.getPersona() == null || 
+			ordenador.getPersona().getId() == null)
+			errores.add("Persona id requerido"); 
+
+		/******* Ejecución *******/
+		if (errores.size() > 0) {
+			responseWrapper.setSuccess(false);
+			responseWrapper.setErrores(errores);
+		} else {
+			try {
+				ordenadorService.agregarOrdenador(ordenador);
+				responseWrapper.setSuccess(true);
+			} catch (Exception e) {
+				responseWrapper.setSuccess(false);
+				errores.add(e.getMessage());
+			}
+		}
+		
+		return responseWrapper;
 	}	
 
 }

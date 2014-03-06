@@ -103,10 +103,14 @@
 			var ajax = $.ajax(url, {
 				type: "POST",
 				data: JSON.stringify(ordenador),
-				contentType: "application/json"
+				contentType: "application/json",
+				dataType: "json"
 			});
 			
-			ajax.done(function() {
+			ajax.done(function(respuesta) {
+				if (!respuesta.success)
+					window.alert(respuesta.errores);
+				
 				limpiarFormulario();
 				peticionOrdenadores();
 			}).fail(function() {
