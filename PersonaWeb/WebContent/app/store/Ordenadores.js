@@ -10,7 +10,8 @@ Ext.define('PWeb.store.Ordenadores', {
     	type: 'rest',
         reader: {
             type: 'json',
-            root: 'data'
+            root: 'data',
+            successProperty: 'success'
         }
     }
 });

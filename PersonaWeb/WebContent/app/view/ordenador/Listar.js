@@ -18,6 +18,17 @@ Ext.define('PWeb.view.ordenador.Listar' ,{
             }
         ];
 
+        this.buttons = [
+                        {
+                            text: 'Agregar',
+                            action: 'agregar'
+                        },
+                        {
+                            text: 'Eliminar',
+                            action: 'eliminar'
+                        }
+        ];
+        
         this.callParent(arguments);
     }
 });
