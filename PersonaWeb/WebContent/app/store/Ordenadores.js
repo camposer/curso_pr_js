@@ -5,8 +5,12 @@ Ext.define('PWeb.store.Ordenadores', {
     
     autoLoad: true,
 
-    data: [
-        {id: 1, nombre: 'Ordenador#1', serial: '123456'},
-        {id: 2, nombre: 'Ordenador#2', serial: '789012'}
-    ]
+    proxy: {
+    	url: '/PersonaWeb/rest/ordenadores',
+    	type: 'rest',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
 });

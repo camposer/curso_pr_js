@@ -10,7 +10,12 @@ Ext.define('PWeb.view.ordenador.Listar' ,{
         this.columns = [
             {header: 'Id',  dataIndex: 'id',  flex: 1},
             {header: 'Nombre',  dataIndex: 'nombre',  flex: 1},
-            {header: 'Serial', dataIndex: 'serial', flex: 1}
+            {header: 'Serial', dataIndex: 'serial', flex: 1},
+            {header: 'Persona', dataIndex: 'persona', flex: 1, 
+            	renderer: function(value) {
+            		return value.nombre + " " + value.apellido;
+            	}
+            }
         ];
 
         this.callParent(arguments);

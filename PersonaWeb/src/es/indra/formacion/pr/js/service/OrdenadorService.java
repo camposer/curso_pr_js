@@ -39,12 +39,14 @@ public class OrdenadorService implements IOrdenadorService {
 				o.setId(oHib.getId());
 				o.setNombre(oHib.getNombre());
 				o.setSerial(oHib.getSerial());
-				o.setPersona(new Persona(
+				Persona p = new Persona(
 						pHib.getNombre(), 
 						pHib.getApellido(), 
 						pHib.getFechaNacimiento(), 
 						pHib.getAltura()
-					));
+					);
+				p.setId(pHib.getId());
+				o.setPersona(p);
 				
 				ordenadores.add(o);
 			}

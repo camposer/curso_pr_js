@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Persona implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(unique=true, nullable=false)
+	@JsonProperty
 	private Integer id;
 
 	private Double altura;

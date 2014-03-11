@@ -9,7 +9,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class ResponseWrapper<T> implements Serializable {
 	private static final long serialVersionUID = 1244637866215590927L;
 
-	private Boolean success;
+	private Boolean success = true;
 	private List<String> errores;
 	private T data;
 	

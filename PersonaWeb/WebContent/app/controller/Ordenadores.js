@@ -37,7 +37,7 @@ Ext.define('PWeb.controller.Ordenadores', {
 	
 	editarOrdenador: function(grid, record) {
 		var view = Ext.widget('editarordenador');
-
+console.log(record);
 		view.down('form').loadRecord(record);
 	}
 });

@@ -25,8 +25,11 @@ public class OrdenadorRest {
 			method=RequestMethod.GET,
 			produces="application/json"
 		)
-	public @ResponseBody List<Ordenador> obtenerTodos() {
-		return ordenadorService.obtenerOrdenadores();
+	public @ResponseBody ResponseWrapper<List<Ordenador>> obtenerTodos() {
+		ResponseWrapper<List<Ordenador>> responseWrapper = new ResponseWrapper<List<Ordenador>>();
+		responseWrapper.setData(ordenadorService.obtenerOrdenadores());
+		
+		return responseWrapper;
 	}
 	
 	@RequestMapping(
@@ -34,41 +37,54 @@ public class OrdenadorRest {
 			method=RequestMethod.GET,
 			produces="application/json"
 		)
-	public @ResponseBody Ordenador obtener(@PathVariable Integer id) {
-		return ordenadorService.obtenerOrdenador(id);
+	public @ResponseBody ResponseWrapper<Ordenador> obtener(@PathVariable Integer id) {
+		ResponseWrapper<Ordenador> responseWrapper = new ResponseWrapper<Ordenador>();
+		responseWrapper.setData(ordenadorService.obtenerOrdenador(id));
+		
+		return responseWrapper;
 	}	
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(
-			value="/ordenadores/{id}", 
+			value="/ordenadores/{id}*", 
 			method=RequestMethod.PUT,
 			consumes="application/json"
 		)
-	public void modificar(
+	public @ResponseBody ResponseWrapper modificar(
 			@PathVariable Integer id, 
 			@RequestBody Ordenador ordenador) {
 		
+		// TODO: Agregar manejo de errores como en el agregar
 		ordenador.setId(id);
 		ordenadorService.modificarOrdenador(ordenador);
+		
+		return new ResponseWrapper();
 	}	
 
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(
 			value="/ordenadores/{id}", 
 			method=RequestMethod.DELETE
 		)
-	public void eliminar(
+	public @ResponseBody ResponseWrapper eliminar(
 			@PathVariable Integer id) {
 		
+		// TODO: Agregar manejo de errores como en el agregar
+		
 		ordenadorService.eliminarOrdenador(id);
+		
+		return new ResponseWrapper();
 	}	
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(
 			value={"/ordenadores", "/ordenadores/"}, 
 			method=RequestMethod.POST,
 			consumes="application/json",
 			produces="application/json"
 		)
-	public @ResponseBody ResponseWrapper<List<Ordenador>> agregar(@RequestBody Ordenador ordenador) {
-		ResponseWrapper<List<Ordenador>> responseWrapper = new ResponseWrapper<List<Ordenador>>();
+	public @ResponseBody ResponseWrapper agregar(@RequestBody Ordenador ordenador) {
+		ResponseWrapper responseWrapper = new ResponseWrapper<List<Ordenador>>();
 		
 		// FIXME: Averiguar como meter clave de messages
 		/***** Validaciones *****/

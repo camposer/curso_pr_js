@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import es.indra.formacion.pr.js.front.wrapper.ResponseWrapper;
 import es.indra.formacion.pr.js.model.Persona;
 import es.indra.formacion.pr.js.service.IPersonaService;
 
@@ -21,8 +22,10 @@ public class PersonaRest {
 			method=RequestMethod.GET,
 			produces="application/json"
 		)
-	public @ResponseBody List<Persona> obtenerTodos() {
-		return personaService.obtenerPersonas();
+	public @ResponseBody ResponseWrapper<List<Persona>> obtenerTodos() {
+		ResponseWrapper<List<Persona>> responseWrapper = new ResponseWrapper<List<Persona>>();
+		responseWrapper.setData(personaService.obtenerPersonas());
+		return responseWrapper;
 	}
 	
 }
